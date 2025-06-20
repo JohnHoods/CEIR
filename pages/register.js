@@ -60,19 +60,6 @@ export default function Register() {
       );
     }
   };
-  {msg && (
-  <div
-    style={{
-      margin: "8px 0 0 0",
-      color: msg.startsWith("Ошибка") ? "#e53935" : "#219653",
-      fontWeight: 500,
-      fontSize: 16
-    }}
-  >
-    {msg}
-  </div>
-)};
-
   return (
     <form
       onSubmit={handleSubmit}

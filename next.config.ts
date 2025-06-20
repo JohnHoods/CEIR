@@ -1,7 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  basePath: '/CEIR',
+  assetPrefix: '/CEIR',
 };
 
 export default nextConfig;
