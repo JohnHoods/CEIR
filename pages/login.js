@@ -3,6 +3,7 @@ import { loginUser } from "../utils/api";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import axios from "axios";
+import { API_URL } from "../utils/api";
 
 export default function Login() {
   const [form, setForm] = useState({ identifier: "", password: "" });
@@ -23,7 +24,7 @@ export default function Login() {
 
       // Получаем company_name и verified после логина
       if (data.jwt) {
-        const res = await axios.get("https://committed-purpose-bfc9c6671d.strapiapp.com/api/users/me", {
+        const res = await axios.get(`${API_URL}/users/me`, {
           headers: { Authorization: `Bearer ${data.jwt}` }
         });
 

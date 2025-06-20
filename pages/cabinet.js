@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import withAuth from "../hoc/withAuth";
+import { API_URL } from "../utils/api";
 
 function Cabinet() {
   const [user, setUser] = useState(null);
@@ -11,25 +12,25 @@ function Cabinet() {
   const [myRequests, setMyRequests] = useState([]);
 
   // Получаем профиль пользователя
-useEffect(() => {
-  const token = localStorage.getItem("jwt");
-  if (token) {
-    axios.get("https://committed-purpose-bfc9c6671d.strapiapp.com/api/users/me", {
-      headers: { Authorization: `Bearer ${token}` }
-    }).then(res => {
-      setUser(res.data);
-      setForm(res.data);
-      // Получаем товары (author_seller)
-      axios.get(`https://committed-purpose-bfc9c6671d.strapiapp.com/api/products?filters[author_seller][id][$eq]=${res.data.id}`)
-        .then(r => setMyProducts(r.data.data ?? r.data))
-        .catch(() => setMyProducts([]));
-      // Получаем запросы (author_buyer)
-      axios.get(`https://committed-purpose-bfc9c6671d.strapiapp.com/api/request-products?filters[author_buyer][id][$eq]=${res.data.id}`)
-        .then(r => setMyRequests(r.data.data ?? r.data))
-        .catch(() => setMyRequests([]));
-    });
-  }
-}, []);
+  useEffect(() => {
+    const token = localStorage.getItem("jwt");
+    if (token) {
+      axios.get(`${API_URL}/users/me`, {
+        headers: { Authorization: `Bearer ${token}` }
+      }).then(res => {
+        setUser(res.data);
+        setForm(res.data);
+        // Получаем товары (author_seller)
+        axios.get(`${API_URL}/products?filters[author_seller][id][$eq]=${res.data.id}`)
+          .then(r => setMyProducts(r.data.data ?? r.data))
+          .catch(() => setMyProducts([]));
+        // Получаем запросы (author_buyer)
+        axios.get(`${API_URL}/request-products?filters[author_buyer][id][$eq]=${res.data.id}`)
+          .then(r => setMyRequests(r.data.data ?? r.data))
+          .catch(() => setMyRequests([]));
+      });
+    }
+  }, []);
 
   // Обработка изменения полей формы
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
@@ -41,7 +42,7 @@ useEffect(() => {
     const token = localStorage.getItem("jwt");
     try {
       await axios.put(
-        `https://committed-purpose-bfc9c6671d.strapiapp.com/api/users/${user.id}`,
+        `${API_URL}/users/${user.id}`,
         form,
         { headers: { Authorization: `Bearer ${token}` } }
       );

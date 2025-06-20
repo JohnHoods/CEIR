@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Link from "next/link";
+import { API_URL } from "../utils/api";
 
 export default function Requests() {
   const [requests, setRequests] = useState([]);
 
   useEffect(() => {
-    axios.get("https://committed-purpose-bfc9c6671d.strapiapp.com/api/request-products")
+    axios.get(`${API_URL}/request-products`)
       .then(res => {
         // Если res.data.data нет — значит массив плоский, иначе используй res.data.data
         const arr = res.data.data ?? res.data;

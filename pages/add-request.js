@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import withAuth from "../hoc/withAuth";
+import { API_URL } from "../utils/api";
 
 function AddRequest() {
   const [form, setForm] = useState({
@@ -39,7 +40,7 @@ function AddRequest() {
       };
 
       await axios.post(
-        "https://committed-purpose-bfc9c6671d.strapiapp.com/api/request-products",
+        `${API_URL}/request-products`,
         { data: dataToSend },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -73,7 +74,6 @@ function AddRequest() {
       padding: 32,
       boxShadow: "0 4px 20px #d5d5d5",
     }}>
-      {/* поля как у тебя */}
       <input name="Title" value={form.Title} onChange={handleChange} placeholder="Название запроса" required />
       <select name="category" value={form.category} onChange={handleChange}>
         {categories.map((cat) => (

@@ -1,5 +1,6 @@
 import axios from "axios";
-const API_URL = "https://committed-purpose-bfc9c6671d.strapiapp.com/api";
+const API_BASE = "https://committed-purpose-bfc9c6671d.strapiapp.com";
+export const API_URL = `${API_BASE}/api`;
 
 // Регистрация нового пользователя
 export const registerUser = async (payload) =>

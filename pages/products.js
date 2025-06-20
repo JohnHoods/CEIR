@@ -1,18 +1,22 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { API_URL } from "../utils/api";
 
 export default function Products() {
   const [products, setProducts] = useState([]);
   const [popupProduct, setPopupProduct] = useState(null);
 
   useEffect(() => {
-    axios.get("https://committed-purpose-bfc9c6671d.strapiapp.com/api/products")
+    axios.get(`${API_URL}/products`)
       .then(res => {
         const productsArray = res.data.data ?? res.data;
         setProducts(productsArray);
       })
       .catch(() => setProducts([]));
   }, []);
+
+  // Получить базовый url (без /api)
+  const API_BASE = API_URL.replace('/api','');
 
   return (
     <div style={{ maxWidth: 700, margin: "0 auto" }}>
@@ -150,7 +154,7 @@ export default function Products() {
                   {popupProduct.documents.map(doc => (
                     <li key={doc.id}>
                       <a
-                        href={doc.url.startsWith("http") ? doc.url : `https://committed-purpose-bfc9c6671d.strapiapp.com${doc.url}`}
+                        href={doc.url.startsWith("http") ? doc.url : `${API_BASE}${doc.url}`}
                         target="_blank"
                         rel="noopener noreferrer"
                       >

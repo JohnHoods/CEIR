@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import withAuth from "../hoc/withAuth";
+import { API_URL } from "../utils/api";
 
 function AddProduct() {
   const [form, setForm] = useState({
@@ -74,7 +75,7 @@ function AddProduct() {
       // Связь с пользователем
       formData.append("data[users_permissions_user]", userId);
 
-      await axios.post("https://committed-purpose-bfc9c6671d.strapiapp.com/api/products", formData, {
+      await axios.post(`${API_URL}/products`, formData, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setMsg("Товар успешно добавлен!");
