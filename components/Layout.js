@@ -6,10 +6,10 @@ export default function Layout({ children }) {
   const [isLogged, setIsLogged] = useState(false);
   const router = useRouter();
 
-  useEffect(() => {
-    const pathname = typeof window !== "undefined" ? window.location.pathname : "";
-    setIsLogged(!!localStorage.getItem("jwt"));
-  }, [router.pathname]);
+useEffect(() => {
+  setIsLogged(!!localStorage.getItem("jwt"));
+}, [router.pathname]);
+
 
   const handleLogout = () => {
     localStorage.removeItem("jwt");
